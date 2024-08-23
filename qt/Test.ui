@@ -26,23 +26,23 @@
    <string>Комплекс</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-color:rgb(111, 111, 111)</string>
+   <string notr="true"/>
   </property>
   <layout class="QHBoxLayout" name="horizontalLayout">
    <item>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QVBoxLayout" name="verticalLayout_2">
      <item>
-      <widget class="QLabel" name="lbl_task_num">
-       <property name="styleSheet">
-        <string notr="true">font: 75 28pt &quot;MS Shell Dlg 2&quot;;</string>
+      <spacer name="verticalSpacer_3">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
        </property>
-       <property name="text">
-        <string>Задание №1</string>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
        </property>
-       <property name="indent">
-        <number>0</number>
-       </property>
-      </widget>
+      </spacer>
      </item>
      <item>
       <widget class="QLabel" name="lbl_task">
@@ -62,14 +62,57 @@
         <string notr="true">font: 14pt &quot;MS Shell Dlg 2&quot;;</string>
        </property>
        <property name="text">
-        <string>1. Перейти на рабочий стол 
-
-2. Создать файл с именем Task1_1
-
-3. Выдать файлу Task1_1 полный доступ прав для текущего пользователя</string>
+        <string>Текст задания</string>
        </property>
        <property name="alignment">
         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <widget class="QLabel" name="lbl_task_num">
+       <property name="styleSheet">
+        <string notr="true">font: 75 28pt &quot;MS Shell Dlg 2&quot;;
+text-align: center;</string>
+       </property>
+       <property name="text">
+        <string>Задание №1</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+       <property name="indent">
+        <number>0</number>
        </property>
       </widget>
      </item>
@@ -89,7 +132,7 @@
      <item>
       <layout class="QHBoxLayout" name="horizontalLayout_2">
        <item>
-        <widget class="QPushButton" name="btn_previous">
+        <widget class="QPushButton" name="btn_backward">
          <property name="sizePolicy">
           <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
            <horstretch>0</horstretch>
@@ -98,12 +141,31 @@
          </property>
          <property name="styleSheet">
           <string notr="true">background-color: rgb(197, 255, 149);
-font: 75 16pt &quot;MS Shell Dlg 2&quot;;</string>
+QPushButton::hover
+{
+ background-color : lightgreen;
+}</string>
          </property>
          <property name="text">
-          <string>Назад</string>
+          <string/>
+         </property>
+         <property name="icon">
+          <iconset theme="back"/>
          </property>
         </widget>
+       </item>
+       <item>
+        <spacer name="horizontalSpacer_3">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
        </item>
        <item>
         <widget class="QPushButton" name="btn_end_test">
@@ -124,12 +186,25 @@ font: 75 16pt &quot;MS Shell Dlg 2&quot;;</string>
 font: 75 16pt &quot;MS Shell Dlg 2&quot;;</string>
          </property>
          <property name="text">
-          <string>Закончить попытку</string>
+          <string>Закончить</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="btn_next">
+        <spacer name="horizontalSpacer_4">
+         <property name="orientation">
+          <enum>Qt::Horizontal</enum>
+         </property>
+         <property name="sizeHint" stdset="0">
+          <size>
+           <width>40</width>
+           <height>20</height>
+          </size>
+         </property>
+        </spacer>
+       </item>
+       <item>
+        <widget class="QPushButton" name="btn_forward">
          <property name="enabled">
           <bool>true</bool>
          </property>
@@ -140,15 +215,31 @@ font: 75 16pt &quot;MS Shell Dlg 2&quot;;</string>
           </sizepolicy>
          </property>
          <property name="styleSheet">
-          <string notr="true">background-color: rgb(197, 255, 149);
-font: 75 16pt &quot;MS Shell Dlg 2&quot;;</string>
+          <string notr="true">background-color: rgb(197, 255, 149);</string>
          </property>
          <property name="text">
-          <string>Вперед</string>
+          <string/>
          </property>
         </widget>
        </item>
       </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <layout class="QVBoxLayout" name="verticalLayout_3">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
      </item>
     </layout>
    </item>
