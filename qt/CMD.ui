@@ -82,6 +82,17 @@ font: 12pt &quot;Consolas&quot;;</string>
           </widget>
          </item>
          <item>
+          <widget class="QLabel" name="label_4">
+           <property name="styleSheet">
+            <string notr="true">color: white;
+font: 12pt &quot;Consolas&quot;;</string>
+           </property>
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item>
           <spacer name="verticalSpacer">
            <property name="orientation">
             <enum>Qt::Vertical</enum>

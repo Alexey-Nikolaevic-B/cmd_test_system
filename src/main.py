@@ -4,6 +4,11 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 
+from PyQt5.QtWidgets import QApplication
+from PyQt5.QtWidgets import QHBoxLayout
+from PyQt5.QtWidgets import QLabel
+from PyQt5.QtWidgets import QPushButton
+
 import cmd_interface
 
 
@@ -12,7 +17,8 @@ class AppData():
     name = ""
     mark = 0
     task = []
-    check = []
+    check_regex = []
+    checks = []
     cur_task = 0
 
 
@@ -24,6 +30,9 @@ class CMDScreen(QDialog):
         super().__init__()
         self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
         
+        self.label_10 = QLabel('Random letters: _')
+        self.label_10.show()
+
         loadUi('qt\CMD.ui', self)
         self.setWindowIcon(QtGui.QIcon('img/icon_cmd.jpg'))
         self.setWindowTitle('Администратор: Командная строка')
@@ -33,14 +42,21 @@ class CMDScreen(QDialog):
 
     def enter(self):
         self.input_cmd = self.lineEdit.text()
-        # result = cmd_interface.exec_command(self.input_cmd)
-        # self.label_2.setText()
+        result = cmd_interface.exec_command(self.input_cmd)
+        self.label_2.setText(result)
+
+        self.lineEdit.setText('')
+        self.label_4.setText('')    
 
         check_pattern = re.compile(self.appData.check[self.appData.cur_task])
+        lable = QLabel("test")
+        # self.scrollArea.setWidget(self.scrollArea)
+        self.scrollArea.setWidget(lable)
 
         if check_pattern.match(self.input_cmd):
+            self.appData.checks[self.appData.cur_task] = 1
             self.appData.mark = self.appData.mark + 1
-            self.label_2.setText("МОЛОДЕЦ")
+            self.label_4.setText('МОЛОДЕЦ')
 
 
 class TestScreen(QDialog):
@@ -91,14 +107,19 @@ class TestScreen(QDialog):
             self.btn_end_test.show()
 
         self.lbl_task_num.setText("Задание " + str(self.appData.cur_task + 1))
-        self.lbl_task.setText("\t" + str(self.appData.task[self.appData.cur_task]))
+        self.lbl_task.setText(str(self.appData.task[self.appData.cur_task]))
+
+        self.cmd.update()
+
+    def approve(self):
+        self.setStyleSheet("background-color: rgb(85, 255, 127);")
 
     def gotoReslutScreen(self):
         self.cmd.close()
         resultScreen = ResultScreen(self.appData)
         widget.addWidget(resultScreen)
         widget.setCurrentIndex(widget.currentIndex()+1)
-
+        
 
 class LoginScreen(QDialog):
     appData = AppData()
@@ -131,8 +152,8 @@ class ResultScreen(QDialog):
         super(ResultScreen, self).__init__()
         loadUi('qt\Result.ui', self)
 
-        self.lbl_result.setText(str(self.appData.mark))
-        self.lbl_result1.setText(str(self.appData.mark) + " / " + str(len(self.appData.task)))
+        self.lbl_result.setText(str(self.appData.checks.count(1) / len(self.appData.task) * 5))
+        self.lbl_result1.setText(str(self.appData.checks.count(1)) + " / " + str(len(self.appData.task)))
 
         if (self.appData.mark == 2):
             self.setStyleSheet("background-color: rgb(255, 117, 117);")
@@ -148,8 +169,9 @@ if __name__ == '__main__':
 
     app = QApplication(sys.argv)
     data = AppData()
-    data.task = ["Узнайте имя текущего пользователя", "Узнайте содержание текщей папки", "Узнайте содержание папки"]
-    data.check = ["[ ]*whoami[ ]*", "[ ]*cd[ ]*", "[ ]*dir[ ]*"]
+    data.task = ["Узнайте имя текущего пользователя", "Узнайте содержание текщей папки", "Узнайте содержание папки", "Пропинговатьль гугл"]
+    data.check = ["[ ]*whoami[ ]*", "[ ]*cd[ ]*", "[ ]*dir[ ]*", "[ ]*ping[ ]+google.com[ ]*"]
+    data.checks = [0] * len(data.task)
 
     loginScreen = LoginScreen(data)
     widget = QtWidgets.QStackedWidget()
