@@ -65,110 +65,46 @@
        </spacer>
       </item>
       <item>
-       <widget class="QLabel" name="label">
-        <property name="styleSheet">
-         <string notr="true">font: 75 18pt &quot;MS Shell Dlg 2&quot;;</string>
-        </property>
-        <property name="text">
-         <string>РЕГИСТРАЦИЯ</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLabel" name="label_2">
-        <property name="styleSheet">
-         <string notr="true">font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
-        </property>
-        <property name="text">
-         <string>Номер взвода</string>
-        </property>
-        <property name="alignment">
-         <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lbl_vzvod_num">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout_2">
-        <item>
-         <widget class="QLabel" name="label_3">
-          <property name="styleSheet">
-           <string notr="true">font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
-          </property>
-          <property name="text">
-           <string>Фамилия и имя</string>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <spacer name="horizontalSpacer_3">
-          <property name="orientation">
-           <enum>Qt::Horizontal</enum>
-          </property>
-          <property name="sizeHint" stdset="0">
-           <size>
-            <width>40</width>
-            <height>20</height>
-           </size>
-          </property>
-         </spacer>
-        </item>
-        <item>
-         <widget class="QLabel" name="lbl_error">
-          <property name="styleSheet">
-           <string notr="true">color: rgb(255, 0, 0);
-font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
-          </property>
-          <property name="text">
-           <string/>
-          </property>
-          <property name="alignment">
-           <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="lbl_student_name">
-        <property name="styleSheet">
-         <string notr="true">background-color: rgb(255, 255, 255);
-font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QPushButton" name="btn_start_test">
+       <widget class="QPushButton" name="btn_lesson">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(165, 255, 158);
 font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="text">
-         <string>Начать тест</string>
+         <string>Урок 1</string>
         </property>
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="btn_offline_test">
+       <widget class="QPushButton" name="btn_lesson_2">
         <property name="styleSheet">
          <string notr="true">background-color: rgb(165, 255, 158);
 font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
         </property>
         <property name="text">
-         <string>Оффлайн тест</string>
+         <string>Урок 2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_lesson_3">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(165, 255, 158);
+font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Урок 3</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="btn_lesson_4">
+        <property name="styleSheet">
+         <string notr="true">background-color: rgb(165, 255, 158);
+font: 75 14pt &quot;MS Shell Dlg 2&quot;;</string>
+        </property>
+        <property name="text">
+         <string>Урок 4</string>
         </property>
        </widget>
       </item>

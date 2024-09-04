@@ -4,11 +4,6 @@ from PyQt5 import QtWidgets, QtGui, QtCore
 from PyQt5.QtWidgets import QDialog, QApplication
 from PyQt5.uic import loadUi
 
-from PyQt5.QtWidgets import QApplication
-from PyQt5.QtWidgets import QHBoxLayout
-from PyQt5.QtWidgets import QLabel
-from PyQt5.QtWidgets import QPushButton
-
 import cmd_interface
 
 
@@ -29,9 +24,6 @@ class CMDScreen(QDialog):
         self.appData = input
         super().__init__()
         self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
-        
-        self.label_10 = QLabel('Random letters: _')
-        self.label_10.show()
 
         loadUi('qt\CMD.ui', self)
         self.setWindowIcon(QtGui.QIcon('img/icon_cmd.jpg'))
@@ -49,9 +41,6 @@ class CMDScreen(QDialog):
         self.label_4.setText('')    
 
         check_pattern = re.compile(self.appData.check[self.appData.cur_task])
-        lable = QLabel("test")
-        # self.scrollArea.setWidget(self.scrollArea)
-        self.scrollArea.setWidget(lable)
 
         if check_pattern.match(self.input_cmd):
             self.appData.checks[self.appData.cur_task] = 1
@@ -119,6 +108,27 @@ class TestScreen(QDialog):
         resultScreen = ResultScreen(self.appData)
         widget.addWidget(resultScreen)
         widget.setCurrentIndex(widget.currentIndex()+1)
+
+class LessonsScreen(QDialog):
+    appData = AppData()
+
+    def __init__(self, input: AppData):
+        self.appData = input
+        super(LessonsScreen, self).__init__()
+        loadUi('qt\Lessons.ui', self)
+
+        style = "QPushButton { font: 75 14pt \"MS Shll Dlg 2\"; } QPushButton::hover { background-color : rgb(197, 255, 149)}"
+        self.btn_lesson.setStyleSheet(style)
+        self.btn_lesson_2.setStyleSheet(style) 
+        self.btn_lesson_3.setStyleSheet(style) 
+        self.btn_lesson_4.setStyleSheet(style) 
+
+        self.btn_lesson.clicked.connect(self.gotoTestScreen)
+
+    def gotoTestScreen(self):
+        testScreen = TestScreen(self.appData)
+        widget.addWidget(testScreen)
+        widget.setCurrentIndex(widget.currentIndex()+1)       
         
 
 class LoginScreen(QDialog):
@@ -129,9 +139,11 @@ class LoginScreen(QDialog):
         super(LoginScreen, self).__init__()
         loadUi('qt\Login.ui', self)
 
-        style = "QPushButton { font: 75 14pt \"MS Shell Dlg 2\"; } QPushButton::hover { background-color : rgb(197, 255, 149)}"
-        self.btn_start_test.setStyleSheet(style) 
+        style = "QPushButton { font: 75 14pt \"MS Shll Dlg 2\"; } QPushButton::hover { background-color : rgb(197, 255, 149)}"
+        self.btn_offline_test.setStyleSheet(style)
+        self.btn_start_test.setStyleSheet(style)
 
+        self.btn_offline_test.clicked.connect(self.gotoLessonsScreen)
         self.btn_start_test.clicked.connect(self.gotoTestScreen)
 
     def gotoTestScreen(self):
@@ -139,10 +151,16 @@ class LoginScreen(QDialog):
         data.name = self.lbl_student_name.text()
         if (len(data.vzvod_num) == 0 or len(data.name) == 0):
             self.lbl_error.setText("Введите данные")
-        else:
-            testScreen = TestScreen(self.appData)
-            widget.addWidget(testScreen)
-            widget.setCurrentIndex(widget.currentIndex()+1)
+        # else:
+        #     testScreen = TestScreen(self.appData)
+        #     widget.addWidget(testScreen)
+        #     widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def gotoLessonsScreen(self):
+        lessonsScreen = LessonsScreen(self.appData)
+        widget.addWidget(lessonsScreen)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
 
 
 class ResultScreen(QDialog):
