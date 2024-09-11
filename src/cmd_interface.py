@@ -1,9 +1,10 @@
-import os
 import subprocess
 import shlex
 
-
 def exec_command(command_line):
+    if "icacls" in command_line:
+        return
+
     args = shlex.split(command_line)
     process = subprocess.Popen(args, stdout=subprocess.PIPE, shell=True)
     output, error = process.communicate()
