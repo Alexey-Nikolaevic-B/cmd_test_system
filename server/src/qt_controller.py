@@ -46,7 +46,7 @@ class QT_Controler(QObject):
         self.signal_toggle_test.emit(self.student_name)
 
         if not self.test_is_started:    
-            message = "start "
+            message = "start 123"
             self.worker.send_message(message + data)
             self.test_is_started = True
         else:

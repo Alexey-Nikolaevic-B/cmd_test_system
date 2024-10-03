@@ -42,7 +42,7 @@ class QT_Controler(QObject):
         self.connection = threading.Thread(target=self.worker.check_server, daemon=True)
         self.connection.start()
 
-        self.widget.addWidget(self.login)
+        self.widget.addWidget(self.test)
         self.widget.show()
         # self.widget.showFullScreen()
 
@@ -60,8 +60,8 @@ class QT_Controler(QObject):
         self.settings.signal_goto_lessons.connect(self.gotoLessonsScreen)
         self.settings.signal_goto_login.connect(self.gotoLoginScreen)
 
-
         self.test.signal_update_status.connect(self.update_status)
+        self.test.signal_goto_result.connect(self.gotoReslutScreen)
 
     
     def update_status(self, data):
@@ -77,14 +77,18 @@ class QT_Controler(QObject):
 
         pattern_name = re.compile('(\w+) (.+)')
         grouped_data = pattern_name.search(data)
+
+        print(data)
+        print(grouped_data)
         
         if (grouped_data is not None):
             key = grouped_data.group(1)
             info = grouped_data.group(2)
 
-            #print(data)
+            print("-> ", key)
 
             if key == 'start':
+                print("--> ", data)
                 self.gotoTestScreen()
 
             if key == 'end':
