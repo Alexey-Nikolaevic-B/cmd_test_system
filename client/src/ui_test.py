@@ -13,9 +13,20 @@ class TestScreen(QDialog):
 
         self.cur_task = 0
         self.correct = 0
+        self.c = 300
         
         self.btn_backward.clicked.connect(lambda: self.update(0))
         self.btn_forward.clicked.connect(lambda: self.update(1))
+        self.counter()
+
+    
+    def counter(self):
+        mins, secs = divmod(self.c, 60) 
+        timer = '{:02d}:{:02d}'.format(mins, secs) 
+        # print(timer, end="\r") 
+
+        self.c = self.c - 1
+        self.lbl_time.setText(str(timer))
 
     def update(self, option):
         if (option == 0) and (self.cur_task > 0): 

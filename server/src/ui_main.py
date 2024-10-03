@@ -4,24 +4,32 @@ from PyQt5.QtCore import pyqtSignal
 
 class MainScreen(QDialog):
 
-    signal_toggle_test = pyqtSignal()
+    signal_toggle_test = pyqtSignal(str)
 
     def __init__(self):
         super(MainScreen, self).__init__()
         self.init_ui()
 
         self.number_of_tasks = 10
+        self.test_settings = ''
 
         self.btn_start_test.clicked.connect(self.launch_test)
+        self.btn_save_settings.clicked.connect(self.save_settings)
+
+    def save_settings(self):    
+        self.test_settings = self.time.text()
+        print(self.test_settings)
+
 
     def launch_test(self):
         self.btn_start_test.setText('Закончить тест')
-        self.signal_toggle_test.emit() #data
+        self.signal_toggle_test.emit(str(self.test_settings)) #data
+        print(self.test_settings)
 
     def update_users(self, id, name, current, correct):
 
-        # current = round(100 / self.number_of_tasks * current)
-        # correct = round(100 / self.number_of_tasks * correct)
+        current = round(100 / self.number_of_tasks * current)
+        correct = round(100 / self.number_of_tasks * correct)
 
         if id == '1':
             self.lbl_name.setText(name)
@@ -44,7 +52,7 @@ class MainScreen(QDialog):
         self.person.show()
 
     def init_ui(self):
-        loadUi('C:\dev/new\server\qt\Main.ui', self)
+        loadUi('C:\dev\cmd_test_system\server\qt\Main.ui', self)
         self.person.hide()
         self.person_2.hide()
         self.person_3.hide()

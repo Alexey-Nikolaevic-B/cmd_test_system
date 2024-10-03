@@ -10,7 +10,8 @@ import ui_lessons
 import ui_lobby
 import ui_login 
 import ui_result
-import ui_test 
+import ui_test
+import ui_settings
 
 
 
@@ -24,12 +25,13 @@ class QT_Controler(QObject):
     def __init__(self):
         QObject.__init__(self)
 
-        self.widget  = QtWidgets.QStackedWidget()
-        self.login   = ui_login.LoginScreen()
-        self.lobby   = ui_lobby.LobbyScreen()
-        self.lessons = ui_lessons.LessonsScreen()
-        self.test    = ui_test.TestScreen()
-        self.result  = ui_result.ResultScreen()
+        self.widget   = QtWidgets.QStackedWidget()
+        self.login    = ui_login.LoginScreen()
+        self.settings = ui_settings.SettingsScreen()
+        self.lobby    = ui_lobby.LobbyScreen()
+        self.lessons  = ui_lessons.LessonsScreen()
+        self.test     = ui_test.TestScreen()
+        self.result   = ui_result.ResultScreen()
 
         self.worker  = connection.SocketWorker()
 
@@ -46,11 +48,18 @@ class QT_Controler(QObject):
 
     def signals(self):
         self.worker.signal_server_on.connect(self.set_server_status)
-        
         self.worker.signal_data_recived.connect(self.process_recived_data)        
 
         self.login.signal_goto_lobby.connect(self.gotoLobbyScreen)
         self.login.signal_goto_lessons.connect(self.gotoLessonsScreen)
+        self.login.signal_goto_settings.connect(self.gotoSettingsScreen)
+
+        self.lessons.signal_goto_login.connect(self.gotoLoginScreen)
+        self.lessons.signal_goto_settings.connect(self.gotoSettingsScreen)
+
+        self.settings.signal_goto_lessons.connect(self.gotoLessonsScreen)
+        self.settings.signal_goto_login.connect(self.gotoLoginScreen)
+
 
         self.test.signal_update_status.connect(self.update_status)
 
@@ -68,16 +77,18 @@ class QT_Controler(QObject):
 
         pattern_name = re.compile('(\w+) (.+)')
         grouped_data = pattern_name.search(data)
-        key = grouped_data.group(1)
-        info = grouped_data.group(2)
+        
+        if (grouped_data is not None):
+            key = grouped_data.group(1)
+            info = grouped_data.group(2)
 
-        #print(data)
+            #print(data)
 
-        if key == 'start':
-            self.gotoTestScreen()
+            if key == 'start':
+                self.gotoTestScreen()
 
-        if key == 'end':
-            self.gotoReslutScreen()
+            if key == 'end':
+                self.gotoReslutScreen()
 
 
     def set_server_status(self, status):
@@ -85,10 +96,18 @@ class QT_Controler(QObject):
         self.server_on.emit(self.server_status)
         if self.server_status:
             self.login.server_is_on()
-        #print(self.server_status)
+
+
+    def gotoLoginScreen(self):
+        self.widget.addWidget(self.login)
+        self.widget.setCurrentIndex(self.widget.currentIndex()+1)
 
     def gotoLessonsScreen(self):
         self.widget.addWidget(self.lessons)
+        self.widget.setCurrentIndex(self.widget.currentIndex()+1)
+
+    def gotoSettingsScreen(self):
+        self.widget.addWidget(self.settings)
         self.widget.setCurrentIndex(self.widget.currentIndex()+1)
 
     def gotoLobbyScreen(self, name):

@@ -37,20 +37,24 @@ class SocketWorker(QObject):
                 status = 1
                 self.stop_check = True
             self.signal_server_on.emit(status)
-            time.sleep(0.1)  
+            # time.sleep(0.1)  
 
 
     def message_exchange(self):
+        data = 'empty'
+        self.socket.send(data.encode('utf-8'))
         while True:
-            try:
-                # print('catching msg')
-                data = self.socket.recv(2048).decode('utf-8')
-                if (data != 'empty'):
-                    # print(data)
-                    self.signal_data_recived.emit(data)
-            except:
-                pass
 
+            # print('sending msg'
+            # print("sending", self.data)
+            # self.data = 'empty'
+
+
+            # print('catching msg')
+            # data = self.socket.recv(2048).decode('utf-8')
+            # if (data != 'empty') and (data is not None):
+            #     print(data)
+            #     self.signal_data_recived.emit(data)
             try:
                 # print('sending msg')
                 self.socket.send(self.data.encode('utf-8'))
@@ -58,7 +62,16 @@ class SocketWorker(QObject):
                 self.data = 'empty'
             except:
                 pass
-            time.sleep(0.1) 
+            
+            try:
+                # print('catching msg')
+                data = self.socket.recv(2048).decode('utf-8')
+                if (data != 'empty') or (data is not None):
+                    # print('catched' + data)
+                    self.signal_data_recived.emit(data)
+            except:
+                pass
+            time.sleep(0.5) 
         
     def send_message(self, data):
         self.data = data

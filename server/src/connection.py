@@ -49,30 +49,26 @@ class SocketWorker(QObject):
     def threaded_client(self, connection):
 
         thread_number = self.ThreadCount
-        # connection.send('empty'.encode('utf-8'))
         while True:
             try:
-                # print('sending msg')
+                # print(str(thread_number) + ' : sending msg')
                 data = self.data[thread_number]
-                # print(data)
+                # print(str(thread_number) + ' :' + data)
                 connection.send(data.encode('utf-8'))
                 self.data[thread_number] = 'empty'
             except:
                 pass
 
             try:
-                # print('reciving msg')
+                # print(str(thread_number) + ' reciving msg')
                 data = connection.recv(2048).decode('utf-8')
-                if data != 'empty':
+                if (data != 'empty') and (data is not None):
                     data = str(thread_number) + ' ' + data 
                     self.signal_data_recived.emit(data)
-                    # print(data)
-
-                if not data:
-                    break
+                    # print(thread_number + ' :' + data)
             except:
                 pass
-            time.sleep(0.1) 
+            time.sleep(0.5) 
 
         connection.close()
         self.ThreadCount -= 1
